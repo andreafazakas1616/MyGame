@@ -1,0 +1,72 @@
+﻿body, html {
+    height: 100%;
+}
+body {
+    
+    margin: 0;
+    background-image: url(Images/background.jpg);
+    background-attachment:fixed;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: auto;
+}
+
+.btn1 {
+    background-color: #e6dbb8;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    color: #1a0d00;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin:4px 2px;
+    cursor: pointer;
+}
+.main {
+    color: #0d0d0d;
+    text-align: center;
+    overflow: hidden;
+    border: 60px solid transparent;
+    -webkit-border-image: url(Images/border.png) 50% round; 
+    -o-border-image: url(Images/border.png) 50% round; 
+    border-image: url(Images/border.png) 17% round;
+    padding: 2px;
+    width: 500px;    
+    /*margin-top: 5%;
+    margin-left: 24%;*/
+    margin:auto;
+}
+
+
+
+
+
+
+
+    .navbar-inverse {
+    background-image:url(Images/upperbar.jpg);
+    
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}

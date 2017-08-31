@@ -1,0 +1,36 @@
+﻿@model MyGame.Infrastructure.Models.UsersModel
+@{
+    ViewBag.Title = "InitialScreen";
+}
+
+<h2>InitialScreen</h2>
+
+<div>
+    <h3>@ViewBag.Message</h3>
+    
+   @using (Html.BeginForm("InitialScreen", "Profile", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+   {
+    <div class="main">
+        @Html.AntiForgeryToken()
+       
+        @Html.ValidationSummary("", new { @class = "text-danger" })
+        
+        
+        
+        <div class="form-group">
+            <div class="col-md-offset-1 col-md-10">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Name, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @*@Html.TextBoxFor(m => m.Name, new { @class = "form-control" })*@
+                        @Html.EditorFor(m => m.Name, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <input type="submit" class="btn1" value="Submit" />
+            </div>
+        </div>
+    </div>
+   }
+    
+</div>
+

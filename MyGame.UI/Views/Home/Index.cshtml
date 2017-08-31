@@ -1,0 +1,23 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>Welcome to Thapratopia!</h1>
+    <p class="lead">Start your journey to defend the kingdom from the evil ice mage, Inigo!</p>
+      
+</div>
+
+
+<div class="main context">
+    <h2>A test of courage</h2>
+    <p>
+        In the lands of Thapratopia you will face great dangers, which only a true warrior can defeat! Can you prove yourself worthy of saving our kingdom from the evil that has taken over the past 300 years?
+    </p>
+    
+    <input type="button" class="btn1" value="Yes, I am ready!" onclick="@("window.location.href='" + @Url.Action("Register", "Account") + "'");" />
+    <input type="button" class="btn1" value="No, I am not up to the task." onclick="@("window.location.href='" + @Url.Action("Register", "Account") + "'");" />
+
+</div>   
+   
+

@@ -1,0 +1,9 @@
+﻿Generated model file: MyGameModel.edmx.
+Loading metadata from the database took 00:00:00.4032541.
+Generating the model took 00:00:02.6702406.
+Generated model file: MyGameModel.edmx.
+Loading metadata from the database took 00:00:00.4391765.
+Generating the model took 00:00:01.8683977.
+Generated model file: MyGameModel.edmx.
+Loading metadata from the database took 00:00:00.4152355.
+Generating the model took 00:00:01.9054516.

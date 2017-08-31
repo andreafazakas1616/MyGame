@@ -1,0 +1,412 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ItemsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+          <Property Name="PasswordHash" Type="nvarchar(max)" />
+          <Property Name="SecurityStamp" Type="nvarchar(max)" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" />
+          <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="datetime" />
+          <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Class">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Base_attack" Type="int" />
+          <Property Name="Base_defense" Type="int" />
+          <Property Name="Base_HP" Type="int" />
+        </EntityType>
+        <EntityType Name="Enemies">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Attack" Type="int" />
+          <Property Name="Defense" Type="int" />
+          <Property Name="HP" Type="int" />
+        </EntityType>
+        <EntityType Name="Inventory">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_User" Type="int" />
+          <Property Name="ID_Item" Type="int" />
+        </EntityType>
+        <EntityType Name="Items">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Item" Type="nvarchar" MaxLength="20" />
+          <Property Name="Attack" Type="int" />
+          <Property Name="Defense" Type="int" />
+          <Property Name="HPregeneration" Type="int" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Level" Type="int" />
+          <Property Name="Class_ID" Type="int" Nullable="false" />
+          <Property Name="XP" Type="int" Nullable="false" />
+          <Property Name="XP_needed" Type="int" />
+          <Property Name="ASP_ID" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Image" Type="nvarchar(max)" />
+          <Property Name="Armor" Type="int" />
+          <Property Name="Attack" Type="int" />
+          <Property Name="HP" Type="int" />
+        </EntityType>
+        <Association Name="FK_Inventory_Items">
+          <End Role="Items" Type="Self.Items" Multiplicity="0..1" />
+          <End Role="Inventory" Type="Self.Inventory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Items">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Inventory">
+              <PropertyRef Name="ID_Item" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Inventory_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Inventory" Type="Self.Inventory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Inventory">
+              <PropertyRef Name="ID_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="ASP_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Class">
+          <End Role="Class" Type="Self.Class" Multiplicity="1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Class">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="Class_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ItemsModelStoreContainer">
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Class" EntityType="Self.Class" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Enemies" EntityType="Self.Enemies" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Inventory" EntityType="Self.Inventory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Items" EntityType="Self.Items" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Inventory_Items" Association="Self.FK_Inventory_Items">
+            <End Role="Items" EntitySet="Items" />
+            <End Role="Inventory" EntitySet="Inventory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Inventory_Users" Association="Self.FK_Inventory_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Inventory" EntitySet="Inventory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_AspNetUsers" Association="Self.FK_Users_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Class" Association="Self.FK_Users_Class">
+            <End Role="Class" EntitySet="Class" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ItemsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="MyGameEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AspNetUsers" EntityType="ItemsModel.AspNetUser" />
+          <EntitySet Name="Classes" EntityType="ItemsModel.Class" />
+          <EntitySet Name="Enemies" EntityType="ItemsModel.Enemy" />
+          <EntitySet Name="Inventories" EntityType="ItemsModel.Inventory" />
+          <EntitySet Name="Items" EntityType="ItemsModel.Item" />
+          <EntitySet Name="Users" EntityType="ItemsModel.User" />
+          <AssociationSet Name="FK_Users_AspNetUsers" Association="ItemsModel.FK_Users_AspNetUsers">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Class" Association="ItemsModel.FK_Users_Class">
+            <End Role="Class" EntitySet="Classes" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Inventory_Items" Association="ItemsModel.FK_Inventory_Items">
+            <End Role="Item" EntitySet="Items" />
+            <End Role="Inventory" EntitySet="Inventories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Inventory_Users" Association="ItemsModel.FK_Inventory_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Inventory" EntitySet="Inventories" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="AspNetUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Users" Relationship="ItemsModel.FK_Users_AspNetUsers" FromRole="AspNetUser" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Class">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Base_attack" Type="Int32" />
+          <Property Name="Base_defense" Type="Int32" />
+          <Property Name="Base_HP" Type="Int32" />
+          <NavigationProperty Name="Users" Relationship="ItemsModel.FK_Users_Class" FromRole="Class" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Enemy">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Attack" Type="Int32" />
+          <Property Name="Defense" Type="Int32" />
+          <Property Name="HP" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Inventory">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_User" Type="Int32" />
+          <Property Name="ID_Item" Type="Int32" />
+          <NavigationProperty Name="Item" Relationship="ItemsModel.FK_Inventory_Items" FromRole="Inventory" ToRole="Item" />
+          <NavigationProperty Name="User" Relationship="ItemsModel.FK_Inventory_Users" FromRole="Inventory" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Item">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Item1" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Attack" Type="Int32" />
+          <Property Name="Defense" Type="Int32" />
+          <Property Name="HPregeneration" Type="Int32" />
+          <NavigationProperty Name="Inventories" Relationship="ItemsModel.FK_Inventory_Items" FromRole="Item" ToRole="Inventory" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Level" Type="Int32" />
+          <Property Name="Class_ID" Type="Int32" Nullable="false" />
+          <Property Name="XP" Type="Int32" Nullable="false" />
+          <Property Name="XP_needed" Type="Int32" />
+          <Property Name="ASP_ID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Armor" Type="Int32" />
+          <Property Name="Attack" Type="Int32" />
+          <Property Name="HP" Type="Int32" />
+          <NavigationProperty Name="AspNetUser" Relationship="ItemsModel.FK_Users_AspNetUsers" FromRole="User" ToRole="AspNetUser" />
+          <NavigationProperty Name="Class" Relationship="ItemsModel.FK_Users_Class" FromRole="User" ToRole="Class" />
+          <NavigationProperty Name="Inventories" Relationship="ItemsModel.FK_Inventory_Users" FromRole="User" ToRole="Inventory" />
+        </EntityType>
+        <Association Name="FK_Users_AspNetUsers">
+          <End Type="ItemsModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+          <End Type="ItemsModel.User" Role="User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="ASP_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Class">
+          <End Type="ItemsModel.Class" Role="Class" Multiplicity="1" />
+          <End Type="ItemsModel.User" Role="User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Class">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="Class_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Inventory_Items">
+          <End Type="ItemsModel.Item" Role="Item" Multiplicity="0..1" />
+          <End Type="ItemsModel.Inventory" Role="Inventory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Item">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Inventory">
+              <PropertyRef Name="ID_Item" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Inventory_Users">
+          <End Type="ItemsModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="ItemsModel.Inventory" Role="Inventory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Inventory">
+              <PropertyRef Name="ID_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ItemsModelStoreContainer" CdmEntityContainer="MyGameEntities">
+          <EntitySetMapping Name="AspNetUsers">
+            <EntityTypeMapping TypeName="ItemsModel.AspNetUser">
+              <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Classes">
+            <EntityTypeMapping TypeName="ItemsModel.Class">
+              <MappingFragment StoreEntitySet="Class">
+                <ScalarProperty Name="Base_HP" ColumnName="Base_HP" />
+                <ScalarProperty Name="Base_defense" ColumnName="Base_defense" />
+                <ScalarProperty Name="Base_attack" ColumnName="Base_attack" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Enemies">
+            <EntityTypeMapping TypeName="ItemsModel.Enemy">
+              <MappingFragment StoreEntitySet="Enemies">
+                <ScalarProperty Name="HP" ColumnName="HP" />
+                <ScalarProperty Name="Defense" ColumnName="Defense" />
+                <ScalarProperty Name="Attack" ColumnName="Attack" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Inventories">
+            <EntityTypeMapping TypeName="ItemsModel.Inventory">
+              <MappingFragment StoreEntitySet="Inventory">
+                <ScalarProperty Name="ID_Item" ColumnName="ID_Item" />
+                <ScalarProperty Name="ID_User" ColumnName="ID_User" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Items">
+            <EntityTypeMapping TypeName="ItemsModel.Item">
+              <MappingFragment StoreEntitySet="Items">
+                <ScalarProperty Name="HPregeneration" ColumnName="HPregeneration" />
+                <ScalarProperty Name="Defense" ColumnName="Defense" />
+                <ScalarProperty Name="Attack" ColumnName="Attack" />
+                <ScalarProperty Name="Item1" ColumnName="Item" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="ItemsModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="HP" ColumnName="HP" />
+                <ScalarProperty Name="Attack" ColumnName="Attack" />
+                <ScalarProperty Name="Armor" ColumnName="Armor" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="ASP_ID" ColumnName="ASP_ID" />
+                <ScalarProperty Name="XP_needed" ColumnName="XP_needed" />
+                <ScalarProperty Name="XP" ColumnName="XP" />
+                <ScalarProperty Name="Class_ID" ColumnName="Class_ID" />
+                <ScalarProperty Name="Level" ColumnName="Level" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
