@@ -1,4 +1,9 @@
-﻿namespace MyGame.Infrastructure.Models
+﻿using MyGame.DAL;
+using System.Collections;
+using System.Collections.Generic;
+using System.Web;
+
+namespace MyGame.Infrastructure.Models
 {
     public class UsersModel
     {
@@ -10,8 +15,10 @@
         public int XP_needed { get; set; }
         public string Asp_Id { get; set; }
         public string Image { get; set; }
+        public HttpPostedFileBase UploadedImage { get; set; }
         public string ErrorMessage { get; set; }
         public int Armor { get; set; }
         public int Attack { get; set; }
+        public virtual List<ClassModel> Classmodel { get; set; }
     }
 }

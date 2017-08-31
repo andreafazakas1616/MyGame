@@ -7,30 +7,35 @@
 
 <div>
     <h3>@ViewBag.Message</h3>
-    
-   @using (Html.BeginForm("InitialScreen", "Profile", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-   {
-    <div class="main">
-        @Html.AntiForgeryToken()
-       
-        @Html.ValidationSummary("", new { @class = "text-danger" })
-        
-        
-        
-        <div class="form-group">
-            <div class="col-md-offset-1 col-md-10">
-                <div class="form-group">
-                    @Html.LabelFor(m => m.Name, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
-                        @*@Html.TextBoxFor(m => m.Name, new { @class = "form-control" })*@
-                        @Html.EditorFor(m => m.Name, "", new { @class = "text-danger" })
+
+    @using (Html.BeginForm("InitialScreen", "Profile", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        <div class="main">
+            @Html.AntiForgeryToken()
+
+            @Html.ValidationSummary("", new { @class = "text-danger" })
+
+
+
+            <div class="form-group">
+                <div class="col-md-offset-1 col-md-10">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Name, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @*@Html.TextBoxFor(m => m.Name, new { @class = "form-control" })*@
+                            @Html.EditorFor(m => m.Name, "", new { @class = "text-danger" })
+                        </div>
+                        <p>Choose your class:</p>
+                        @Html.HiddenFor(m => m.Class_ID)
+                        @Html.DropDownListFor(m=>m.Class_ID, new SelectList(Model.Classmodel, "ID", "Class Name"))
+                            
+                          
+
                     </div>
+                    <input type="submit" class="btn1" value="Submit" />
                 </div>
-                <input type="submit" class="btn1" value="Submit" />
             </div>
         </div>
-    </div>
-   }
-    
-</div>
+    }
 
+</div>

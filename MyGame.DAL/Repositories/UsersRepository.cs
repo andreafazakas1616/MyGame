@@ -78,10 +78,8 @@ namespace MyGame.DAL.Repository
             }
         }
 
-        public User GetClassId(int id)
-        {
-            return _context.Users.Where(u => u.Class_ID==id).Include(x => x.Class).FirstOrDefault();
-        }
+        
+        
         #endregion CRUD 
     }
 }

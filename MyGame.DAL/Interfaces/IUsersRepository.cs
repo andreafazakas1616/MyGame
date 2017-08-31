@@ -10,9 +10,8 @@ namespace MyGame.DAL.Interfaces
         int Insert(User entity);
         void Update(User entity);
         bool Delete(User entity);
-        
         bool CheckIfUserExists(string email);
         bool UserNameExists(string userName);
-        User GetClassId(int id);
+        
     }
 }

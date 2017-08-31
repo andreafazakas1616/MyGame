@@ -1,6 +1,10 @@
 ﻿body, html {
     height: 100%;
 }
+
+.pass{
+    padding-left:3px
+}
 body {
     
     margin: 0;
@@ -34,16 +38,23 @@ body {
     -o-border-image: url(Images/border.png) 50% round; 
     border-image: url(Images/border.png) 17% round;
     padding: 2px;
-    width: 500px;    
+    width: 480px;    
     /*margin-top: 5%;
     margin-left: 24%;*/
     margin:auto;
 }
 
+/*.col-md-10{
+    width:470px;
+}*/
 
+.mybutton {
+    margin-left:1px;
+}
 
-
-
+.mostmain{
+    margin-top:70px;
+}
 
 
     .navbar-inverse {
@@ -69,4 +80,9 @@ input,
 select,
 textarea {
     max-width: 280px;
+}
+
+.mostmain2{
+    margin-top:200px;
+   
 }
