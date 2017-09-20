@@ -29,6 +29,14 @@ namespace MyGame.BLL.Managers
             var classModel = ClassMapper.ConvertToModel(modelEntity);
             return classModel;
         }
-#endregion public methods
+
+        public List<ClassModel> GetClasses()
+        {
+            List<ClassModel> classModelList = new List<ClassModel>();
+            var classes = _classRepository.GetAll();
+            classModelList = ClassMapper.ConvertToModel(classes);
+            return classModelList;
+        }
+        #endregion public methods
     }
 }

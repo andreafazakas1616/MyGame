@@ -49,15 +49,31 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AspNetRole.cs">
+      <DependentUpon>MyGameModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="AspNetUser.cs">
+      <DependentUpon>MyGameModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AspNetUserClaim.cs">
+      <DependentUpon>MyGameModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AspNetUserLogin.cs">
       <DependentUpon>MyGameModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Class.cs">
       <DependentUpon>MyGameModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="C__MigrationHistory.cs">
+      <DependentUpon>MyGameModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Enemy.cs">
       <DependentUpon>MyGameModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="EnemyCoord.cs">
+      <DependentUpon>MyGameModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Interfaces\IUserCoords.cs" />
     <Compile Include="Interfaces\IUsersRepository.cs" />
     <Compile Include="Inventory.cs">
       <DependentUpon>MyGameModel.tt</DependentUpon>
@@ -85,9 +101,16 @@
     <Compile Include="Repositories\EnemyRepository.cs" />
     <Compile Include="Repositories\InventoryRepository.cs" />
     <Compile Include="Repositories\ItemsRepository.cs" />
+    <Compile Include="Repositories\UserCoordsRepository.cs" />
     <Compile Include="Repositories\UsersRepository.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
+    <Compile Include="sysdiagram.cs">
+      <DependentUpon>MyGameModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="User.cs">
+      <DependentUpon>MyGameModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserCoord.cs">
       <DependentUpon>MyGameModel.tt</DependentUpon>
     </Compile>
   </ItemGroup>

@@ -56,6 +56,10 @@ body {
     margin-top:70px;
 }
 
+#playersubmit{
+    margin-left:30%;
+}
+
 
     .navbar-inverse {
     background-image:url(Images/upperbar.jpg);
@@ -84,5 +88,36 @@ textarea {
 
 .mostmain2{
     margin-top:200px;
+
    
+   
+}
+
+.profile {
+    /*border: 60px solid transparent;
+    -webkit-border-image: url(Images/profileborder.png) 50% round;
+    -o-border-image: url(Images/profileborder.png) 50% round;
+    border-image: url(Images/profileborder.png) 17% round;
+    padding:0;
+    border-width:30px;
+    margin:0;*/
+    color: #0d0d0d;
+    text-align: center;
+    overflow: hidden;
+    border: 60px solid transparent;
+    -webkit-border-image: url(Images/profileborder.png) 50% round;
+    -o-border-image: url(Images/profileborder.png) 50% round;
+    border-image: url(Images/profileborder.png) 17% round;
+    padding: 2px;
+    width: 480px;
+    /*margin-top: 5%;
+    margin-left: 24%;*/
+    margin: auto;
+}
+
+.myform {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
 }

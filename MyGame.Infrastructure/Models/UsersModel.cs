@@ -19,6 +19,6 @@ namespace MyGame.Infrastructure.Models
         public string ErrorMessage { get; set; }
         public int Armor { get; set; }
         public int Attack { get; set; }
-        public virtual List<ClassModel> Classmodel { get; set; }
+        public int HP { get; set; }
     }
 }

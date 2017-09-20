@@ -39,5 +39,14 @@ namespace MyGame.BLL.Mappers
 
         }
 
+        public static List<ClassModel> ConvertToModel(List<Class> classList)
+        {
+            List<ClassModel> classModelList = new List<ClassModel>();
+
+            classList.ForEach(s => classModelList.Add(new ClassModel {ID=s.ID, Name=s.Name }));
+
+            return classModelList;
+        }
+
     }
 }

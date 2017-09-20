@@ -1,0 +1,67 @@
+﻿@model MyGame.UI.Models.Users.UserViewModel
+@{
+    ViewBag.Title = "PlayerView";
+    Layout = "~/Views/Shared/_Layout3.cshtml";
+}
+
+<h2>This is your profile.</h2>
+
+<div class="account">
+
+    @using (Html.BeginForm("PlayerView", "Profile", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+
+        <div class="col-md-12 border3px">
+            <div id="img" class="">
+                @if (!string.IsNullOrEmpty(Model.Image))
+                {
+                    //this line shows a base64 string as an images
+                    <img src="data:image;base64,@Model.Image" width="80" height="80"  />
+                }
+
+                @*@Html.LabelFor(model => model.UploadedImage, htmlAttributes: new { @class = "control-label col-md-2" })*@
+
+
+                @Html.TextBoxFor(model => model.UploadedImage, new { type = "file" })
+                @Html.ValidationMessageFor(model => model.UploadedImage, "", new { @class = "text-danger" })
+
+
+                <div class="form-group" style="">
+                    @*<div class="col-md-offset-5 col-md-2">*@
+                    <input type="submit" value="Change my current picture" class="btn btn-default" />
+                    @*</div>*@
+                </div>
+                <h2>@Html.DisplayFor(model => model.Name)</h2>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 border3px">
+                <div>
+                    Class:
+                    <b>@Html.DisplayFor(model => model.ClassName)</b>
+                </div>
+                <div>
+                    Level:
+                    <b>@Html.DisplayFor(model => model.Level)</b>
+                </div>
+                <div>
+                    Attack:
+                    <b>@Html.DisplayFor(model => model.Attack)</b>
+                </div>
+                <div>
+                    Armor:
+                    <b>@Html.DisplayFor(model => model.Armor)</b>
+                </div>
+            </div>
+
+            <div class="col-md-6 border3px">
+                <div>
+                    Top jej
+                </div>
+            </div>
+        </div>
+
+    }
+
+</div>

@@ -210,15 +210,23 @@
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\UnityMvcActivator.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\FightController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
+    <Compile Include="Controllers\WorldController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\ActionRowViewModel.cs" />
+    <Compile Include="Models\ActionsViewModel.cs" />
+    <Compile Include="Models\FightViewModel.cs" />
+    <Compile Include="Models\ClassViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Users\ClassViewModel.cs" />
+    <Compile Include="Models\Users\UserCoordsViewModel.cs" />
     <Compile Include="Models\Users\UserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -226,9 +234,22 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\arrowdown.png" />
+    <Content Include="Content\Images\arrowup.png" />
     <Content Include="Content\Images\background.jpg" />
     <Content Include="Content\Images\border.png" />
+    <Content Include="Content\Images\bordertexture.jpeg" />
+    <Content Include="Content\Images\color.jpg" />
+    <Content Include="Content\Images\elf.jpg" />
+    <Content Include="Content\Images\hunter.jpg" />
+    <Content Include="Content\Images\leftarrow.png" />
+    <Content Include="Content\Images\map.jpg" />
+    <Content Include="Content\Images\orc.jpg" />
+    <Content Include="Content\Images\profilebackground.jpg" />
+    <Content Include="Content\Images\profileborder.png" />
+    <Content Include="Content\Images\rightarrow.png" />
     <Content Include="Content\Images\upperbar.jpg" />
+    <Content Include="Content\Site2.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -239,6 +260,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\ImageSlideshow.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -249,7 +271,9 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -284,11 +308,16 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Profile\InitialScreen.cshtml" />
-    <Content Include="Views\Profile\View.cshtml" />
+    <Content Include="Views\Profile\PlayerView.cshtml" />
+    <Content Include="Views\Shared\_Layout2.cshtml" />
+    <Content Include="Views\Shared\_Layout3.cshtml" />
+    <Content Include="Views\Shared\_GetCoords.cshtml" />
+    <Content Include="Views\World\Index.cshtml" />
+    <Content Include="Views\Shared\_Actions.cshtml" />
+    <Content Include="Views\Fight\FightMobById.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\ChooseIdentity\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

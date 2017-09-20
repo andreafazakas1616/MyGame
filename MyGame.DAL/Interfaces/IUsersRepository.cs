@@ -12,6 +12,6 @@ namespace MyGame.DAL.Interfaces
         bool Delete(User entity);
         bool CheckIfUserExists(string email);
         bool UserNameExists(string userName);
-        
+        void UpdateUserPicture(User user);
     }
 }

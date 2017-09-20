@@ -26,6 +26,11 @@ namespace MyGame.UI
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+            bundles.Add(new StyleBundle("~/Content2/css").Include(
+                      "~/Content/bootstrap.css",
+                      "~/Content/site2.css"));
+            
         }
     }
 }

@@ -13,5 +13,6 @@ namespace MyGame.Infrastructure.Models
         public int Attack { get; set; }
         public int Defense { get; set; }
         public int HP { get; set; }
+        public int XP_given { get; set; }
     }
 }

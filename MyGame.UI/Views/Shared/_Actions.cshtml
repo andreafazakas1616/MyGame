@@ -1,0 +1,16 @@
+﻿@model MyGame.UI.Models.ActionsViewModel
+
+<div>
+    <h3>Available Actions:</h3>
+    @foreach (var action in Model.ActionList)
+    {
+        <div class="row clearfix">
+            <div class="col-xs-9">
+                @action.Name
+            </div>
+            <div class="col-xs-3">
+                <a href="@action.Link">Attack</a>
+            </div>
+        </div>
+    }
+</div>

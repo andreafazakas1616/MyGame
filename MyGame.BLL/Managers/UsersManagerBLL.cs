@@ -36,6 +36,15 @@ namespace MyGame.BLL.Managers
             return userModel;
 
         }
+
+        public UsersModel GetModel(string id)
+        {
+            var userModel = new UsersModel();
+            var modelEntity = _usersRepository.GetById(id);
+            userModel = UsersMapper.ConvertToModel(modelEntity);
+            return userModel;
+
+        }
         #endregion public methods
 
 

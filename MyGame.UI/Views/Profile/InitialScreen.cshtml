@@ -1,41 +1,79 @@
-﻿@model MyGame.Infrastructure.Models.UsersModel
+﻿@model MyGame.UI.Models.Users.UserViewModel
 @{
     ViewBag.Title = "InitialScreen";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
 }
 
 <h2>InitialScreen</h2>
 
-<div>
-    <h3>@ViewBag.Message</h3>
+
+
+<div class="profile">
 
     @using (Html.BeginForm("InitialScreen", "Profile", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
     {
-        <div class="main">
-            @Html.AntiForgeryToken()
 
-            @Html.ValidationSummary("", new { @class = "text-danger" })
+        @Html.AntiForgeryToken()
+        
+        @Html.ValidationSummary("", new { @class = "text-danger" })
 
-
-
-            <div class="form-group">
-                <div class="col-md-offset-1 col-md-10">
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.Name, new { @class = "col-md-2 control-label" })
-                        <div class="col-md-10">
-                            @*@Html.TextBoxFor(m => m.Name, new { @class = "form-control" })*@
-                            @Html.EditorFor(m => m.Name, "", new { @class = "text-danger" })
-                        </div>
-                        <p>Choose your class:</p>
-                        @Html.HiddenFor(m => m.Class_ID)
-                        @Html.DropDownListFor(m=>m.Class_ID, new SelectList(Model.Classmodel, "ID", "Class Name"))
-                            
-                          
-
-                    </div>
-                    <input type="submit" class="btn1" value="Submit" />
-                </div>
+        <div class="form-group">
+            <div class="col-sm-4 control-label">
+                @Html.LabelFor(tm => tm.Name)
+            </div>
+            <div class="col-sm-7">
+                @Html.TextBoxFor(tm => tm.Name, new { @class = "form-control" })
             </div>
         </div>
+        <div class="slideshow-container">
+            <div class="mySlides fade2">
+                <img src="~/Content/Images/elf.jpg" width="1000" , height="500">
+                <div class="text">Elves have 7 points of attack and 4 points of armor</div>
+            </div>
+
+            <div class="mySlides fade2">
+                <img src="~/Content/Images/orc.jpg" width="1000" , height="500">
+                <div class="text">Orcs have 5 points of attack and 7 points of armor</div>
+            </div>
+
+            <div class="mySlides fade2">
+                <img src="~/Content/Images/hunter.jpg" width="1000" , height="500">
+                <div class="text">Hunters have 6 points of attack and 6 points of armor</div>
+            </div>
+
+            <a class="prev" onclick="addValueToCurrentIndex(-1)">&#10094;</a>
+            <a class="next" onclick="addValueToCurrentIndex(1)">&#10095;</a>
+
+        </div>
+        <br>
+
+        <div style="text-align:center">
+            <span class="dot" onclick="showSlideForIndex(1)"></span>
+            <span class="dot" onclick="showSlideForIndex(2)"></span>
+            <span class="dot" onclick="showSlideForIndex(3)"></span>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-4 control-label">
+                @Html.LabelFor(tm => tm.ClassId)
+            </div>
+            <div class="col-sm-7">
+                @Html.DropDownListFor(tm => tm.ClassId, Model.ClassList, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group">
+
+            <div class="col-md-offset-4 col-md-2">
+                <input type="submit" class="playersubmit" value="Submit" />
+            </div>
+
+        </div>
+
     }
 
 </div>
+
+
+
+
+<script src="~/Scripts/ImageSlideshow.js"></script>

@@ -52,11 +52,14 @@ namespace MyGame.UI.App_Start
             container.RegisterType<IRepository<User>, UsersRepository>();
             container.RegisterType<IUsersRepository, UsersRepository>();
             container.RegisterType<IRepository<Class>, ClassRepository>();
+            container.RegisterType<IRepository<Enemy>, EnemyRepository>();
             
+
 
             container.RegisterType<ClassManagerBLL>("ClassManager");
             container.RegisterType<AspNetUserManagerBLL>("AspNetUserManager");
             container.RegisterType<UsersManagerBLL>("UserManager");
+            container.RegisterType<UsersManagerBLL>("EnemyManager");
 
             //container.RegisterType<IUserStore<ApplicationUser>, UserStore<ApplicationUser>>();
             //container.RegisterType<UserManager<ApplicationUser>>(new HierarchicalLifetimeManager());

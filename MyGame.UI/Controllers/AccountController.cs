@@ -1,10 +1,7 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using MyGame.DAL;
-using MyGame.DAL.Interfaces;
-using MyGame.DAL.Repository;
-using MyGame.Repository.Repository;
+
 using MyGame.UI.Models;
 using System.Linq;
 using System.Threading.Tasks;
@@ -166,7 +163,7 @@ namespace MyGame.UI.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("InitialScreen", "Profile");
                 }
                 AddErrors(result);
             }

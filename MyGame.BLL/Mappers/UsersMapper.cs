@@ -19,25 +19,29 @@ namespace MyGame.BLL.Mappers
             userModel.Image = userEntity.Image;
             userModel.Armor = userEntity.Armor ?? 0;
             userModel.Attack = userEntity.Attack ?? 0;
+            userModel.HP = userEntity.Class.Base_HP??0;
 
             return userModel;
         }
-        public static User ConvertToEntity(UsersModel userEntity)
+        public static User ConvertToEntity(UsersModel userModel)
         {
-            var userModel = new User();
+            var userEntity = new User();
 
-            userModel.ID = userEntity.ID;
-            userModel.Name = userEntity.Name;
-            userModel.Level = userEntity.Level;
-            userModel.Class_ID = userEntity.Class_ID;
-            userModel.XP = userEntity.XP;
-            userModel.XP_needed = userEntity.XP_needed;
-            userModel.ASP_ID = userEntity.Asp_Id;
-            userModel.Image = userEntity.Image;
-            userModel.Armor = userEntity.Armor;
-            userModel.Attack = userEntity.Attack;
-            return userModel;
+            userEntity.ID = userModel.ID;
+            userEntity.Name=userModel.Name;
+            userEntity.Level=userModel.Level;
+            userEntity.Class_ID=userModel.Class_ID;
+            userEntity.XP=userModel.XP;
+            userEntity.XP_needed=userModel.XP_needed;
+            userEntity.ASP_ID=userModel.Asp_Id;
+            userEntity.Image=userModel.Image;
+            userEntity.Armor=userModel.Armor;
+            userEntity.Attack=userModel.Attack;
+                
+            return userEntity;
         }
+
+        
     }
 
 }

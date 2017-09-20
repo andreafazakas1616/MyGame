@@ -1,4 +1,5 @@
 ﻿using MyGame.BLL.Mappers;
+using MyGame.DAL;
 using MyGame.DAL.Repository;
 using MyGame.Infrastructure.Models;
 using System;
@@ -23,12 +24,24 @@ namespace MyGame.BLL.Managers
         #endregion Constructor
 
 #region public methods
-        public EnemyModel GetModel(int id)
+        
+        public EnemyModel GetEnemyById(int enemyId)
         {
-            var modelEntity = _enemyRepository.GetById(id);
+            var modelEntity = _enemyRepository.GetById(enemyId);
             var enemyModel = EnemyMapper.ConvertToModel(modelEntity);
             return enemyModel;
         }
-#endregion public methods
+
+        public EnemyModel GetRandomEnemyModel()
+        {
+            EnemyModel model = new EnemyModel();
+            List<Enemy> enemyList = new List<Enemy>();
+            enemyList = _enemyRepository.GetAll();
+            Random rnd = new Random();
+            var randomEnemy = enemyList.OrderBy(enemy => rnd.Next()).Take(1).First();
+            model = EnemyMapper.ConvertToModel(randomEnemy);
+            return model;
+        }
+        #endregion public methods
     }
 }
