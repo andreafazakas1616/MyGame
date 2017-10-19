@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Web;
 using System.Web.Mvc;
 
+
 namespace MyGame.UI.Models.Users
 {
     public class UserViewModel
@@ -12,6 +13,8 @@ namespace MyGame.UI.Models.Users
 
         public int Id { get; set; }
 
+        
+
         public string AspId { get; set; }
 
         [Display(Name = "Choose a name for your character:")]
@@ -20,7 +23,7 @@ namespace MyGame.UI.Models.Users
 
         [Required]
         [Display(Name = "Choose a class:")]
-        [Range(1, int.MaxValue, ErrorMessage = "Please select a class")]
+        
         public int ClassId { get; set; }
 
         public string Image { get; set; }
@@ -38,6 +41,7 @@ namespace MyGame.UI.Models.Users
         public string ClassName { get; set; }
         public int CoordX { get; set; }
         public int CoordY { get; set; }
+        public List<FileDetailsModel> FileList { get; set; }
 
     }
 }

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-
+using MyGame.DAL.Interfaces;
 using MyGame.UI.Models;
 using System.Linq;
 using System.Threading.Tasks;
@@ -10,9 +10,11 @@ using System.Web.Mvc;
 
 namespace MyGame.UI.Controllers
 {
+
     [Authorize]
     public class AccountController : Controller
     {
+
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
@@ -21,10 +23,12 @@ namespace MyGame.UI.Controllers
         {
         }
 
+       
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
+           
         }
 
         public ApplicationSignInManager SignInManager
@@ -163,6 +167,7 @@ namespace MyGame.UI.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
+                   
                     return RedirectToAction("InitialScreen", "Profile");
                 }
                 AddErrors(result);

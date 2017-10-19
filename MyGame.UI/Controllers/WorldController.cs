@@ -87,14 +87,37 @@ namespace MyGame.UI.Controllers
             UserCoord userCoord = _userRepository.GetCoordsById(userId);
 
             var model = new ActionsViewModel();
-            //acuma tre sa ii bag in lista niste actiuni
+            
             var mobList = _enemyRepository.GetEnemiesByCoordinate(userCoord.CoordX??0, userCoord.CoordY??0);
             foreach (var mob in mobList)
             {
                 model.ActionList.Add(new ActionRowViewModel { Name = mob.Name, Link = "/Fight/FightMobById?enemyId="+ mob.ID });
+               
             }
+            model.ActionList.Add(new ActionRowViewModel {Name="Shop", Link="/Shop/Shop" });
 
             return PartialView("_Actions", model);
+        }
+
+        public ActionResult GetMenu()
+        {
+            var aspId = User.Identity.GetUserId();
+            var user = _userRepository.GetById(aspId);
+
+            var model = new OptionsViewModel();
+
+            return PartialView("_Menu", model);
+        }
+
+        public ActionResult Rest()
+        {
+            var aspId = User.Identity.GetUserId();
+            var user = _userRepository.GetById(aspId);
+            
+            user.HP = 100;
+            _userRepository.Update(user);
+
+            return RedirectToAction("Index");
         }
     }
 }

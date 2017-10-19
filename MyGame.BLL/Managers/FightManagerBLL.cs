@@ -23,7 +23,7 @@ namespace MyGame.BLL.Managers
         {
             var enemyModel = _enemyManagerBLL.GetEnemyById(enemyId);
             var HtmlBody = "";
-            //WHICH ENEMY THE PLAYER IS FIGHTING
+            
 
             while (userModel.HP > 0 && enemyModel.HP > 0)
             {
@@ -41,7 +41,7 @@ namespace MyGame.BLL.Managers
 
             if (userModel.HP > 0 && enemyModel.HP <= 0)
             {
-                //YOU WON!!!!!
+               
                 userModel.XP = userModel.XP + enemyModel.XP_given;
                 _userRepository.IncrementExperience(userModel.ID, enemyModel.XP_given);
                 HtmlBody += $"<p>You won! As a result, you gain {enemyModel.XP_given} experience</p>";
@@ -49,7 +49,7 @@ namespace MyGame.BLL.Managers
                 if (userModel.XP_needed <= userModel.XP)
                 {
                     _userRepository.IncrementLevelAndStats(userModel.ID);
-                    //YOU REACHED LEVEL++  
+                    
                     HtmlBody += $"<p>Congratulations! You have reached level {userModel.Level+1}</p>";
                 }
                 
@@ -57,7 +57,7 @@ namespace MyGame.BLL.Managers
             else
             {
                 _userRepository.PlayerLostABattle(userModel.ID);
-                //YOU LOST!!!!!!
+                
                 HtmlBody += $"<p>Ripperoni in pepperoni</p>";
             }
 

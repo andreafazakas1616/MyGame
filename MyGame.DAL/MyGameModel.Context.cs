@@ -33,10 +33,11 @@ namespace MyGame.DAL
         public virtual DbSet<Class> Classes { get; set; }
         public virtual DbSet<Enemy> Enemies { get; set; }
         public virtual DbSet<EnemyCoord> EnemyCoords { get; set; }
+        public virtual DbSet<File> Files { get; set; }
         public virtual DbSet<Inventory> Inventories { get; set; }
         public virtual DbSet<Item> Items { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<UserCoord> UserCoords { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<UserItem> UserItems { get; set; }
     }
 }

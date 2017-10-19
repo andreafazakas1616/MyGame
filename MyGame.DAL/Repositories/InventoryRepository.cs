@@ -9,11 +9,13 @@ namespace MyGame.DAL.Repository
     {
         #region ATTRIBUTES
         private readonly MyGameEntities _context=null;
+        private List<Inventory> list;
         #endregion ATTRIBUTES
 
         #region CONSTRUCTOR 
         public InventoryRepository(MyGameEntities context)
         {
+             list= new List<Inventory>();
             _context = context;
         }
 
@@ -52,6 +54,14 @@ namespace MyGame.DAL.Repository
             _context.Inventories.Add(entity);
             _context.Entry(entity).State = System.Data.Entity.EntityState.Modified;
             _context.SaveChanges();
+        }
+
+        public int AddItem(Inventory entity)
+        {
+            
+            _context.Inventories.Add(entity);
+            _context.SaveChanges();
+            return entity.ID;            
         }
 #endregion CRUD
 

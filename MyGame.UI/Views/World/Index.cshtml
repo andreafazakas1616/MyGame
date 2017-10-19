@@ -2,25 +2,34 @@
 @{
     Layout = "~/Views/Shared/_Layout3.cshtml";
 }
-<div class="container" style="background-color:beige">
-    <div class="partialCoords col-md-4">
-        <div id="map">
-            @{Html.RenderPartial("_GetCoords", Model);}
+<div class="jej">
+    <div class="row clearfix">
+        <div class="partialCoords col-md-4">
+            <div id="map">
+                @{Html.RenderPartial("_GetCoords", Model);}
+            </div>
+        </div>
+        <div class="col-md-4" style="height:305px">
+            <div id="actions">
+            </div>
+        </div>
+        <div class="col-md-4" style="height:305px">
+            <div id="menu">
+            </div>
         </div>
     </div>
-    <div class="col-md-4" style="height:305px">
-        <div id="actions">
-        </div>
-    </div>
-    <div class="col-md-4" style="height:305px">
-        <h3>Menu</h3>
-        Rest
+</div>
+<div id="myRestOption" class="modal" style="display:none">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <p>Your HP is now full</p>
     </div>
 </div>
 @Scripts.Render("~/bundles/jquery");
 
 <script type="text/JavaScript">
      $(document).ready(function () {
-         $("#actions").load("@Url.Action("GetActions", "World")")
+         $("#actions").load("@Url.Action("GetActions", "World")");
+         $("#menu").load("@Url.Action("GetMenu", "World")");
     });
 </script>

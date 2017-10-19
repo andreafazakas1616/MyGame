@@ -1,4 +1,5 @@
 ﻿using MyGame.DAL;
+using MyGame.DAL.Repository;
 using MyGame.Infrastructure.Models;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,11 @@ namespace MyGame.BLL.Mappers
 {
     public class ItemsMapper
     {
+        private readonly ItemsRepository _repository = null;
+        public ItemsMapper(ItemsRepository repository)
+        {
+            _repository = repository;
+        }
         public static ItemsModel ConvertToModel(Item itemEntity)
         {
             var itemModel = new ItemsModel();
@@ -20,6 +26,13 @@ namespace MyGame.BLL.Mappers
             itemModel.HPregeneration = itemEntity.HPregeneration ?? 0;
 
             return itemModel;
+        }
+
+        public static List<ItemsModel> ConvertToModelList(List<Item> entityList)
+        {
+            List<ItemsModel> modelList = new List<ItemsModel>();
+            entityList.ForEach(s => modelList.Add(new ItemsModel { ID = s.ID, Item = s.Item1, Attack = s.Attack ?? 0, Defense = s.Defense ?? 0, HPregeneration = s.HPregeneration ?? 0 }));
+            return modelList;
         }
     }
 }

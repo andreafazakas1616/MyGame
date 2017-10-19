@@ -1,0 +1,34 @@
+﻿@model MyGame.UI.Models.OptionsViewModel
+
+@{
+    ViewBag.Title = "_Menu";
+}
+
+<div>
+    <h3>Menu:</h3>
+    @foreach (var option in Model.OptionsList)
+    {
+        <div class="row clearfix">
+
+            <div class="col-xs-3">
+                <a title="@option.Name" id="@option.Id" class="optionButtonerini" href="@option.Link">@option.Name</a>
+            </div>
+        </div>
+    }
+
+    <div class="row clearfix">
+
+        <div class="col-xs-3">
+            <a title="rest" id="restOption" class="optionButtonerini" href="#">Rest</a>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/Menu.js"></script>
+
+<script type="text/JavaScript">
+    $(document).ready(function () {
+        $("#restOption").click(function () {
+            jQuery.ajax("@Url.Action("Rest", "World")");
+        })
+    });
+</script>

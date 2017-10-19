@@ -1,0 +1,19 @@
+﻿@model MyGame.UI.Models.FileDetailsModel
+
+
+    <div>
+        Upload a file:
+        @using (Html.BeginForm("UploadFile", "Profile", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.TextBoxFor(model => model.UploadedFile, new { type = "file" })
+            @Html.ValidationMessageFor(model => model.UploadedFile, "", new { @class = "text-danger" })
+            <div class="form-group" style="">
+
+                <input type="submit" value="Add new file" class="btn btn-default" />
+
+            </div>
+        }
+    </div>
+
+    
+

@@ -44,8 +44,10 @@
     <Compile Include="Models\AspNetUserModel.cs" />
     <Compile Include="Models\ClassModel.cs" />
     <Compile Include="Models\EnemyModel.cs" />
+    <Compile Include="Models\FileModel.cs" />
     <Compile Include="Models\InventoryModel.cs" />
     <Compile Include="Models\ItemsModel.cs" />
+    <Compile Include="Models\UserItemModel.cs" />
     <Compile Include="Models\UsersModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

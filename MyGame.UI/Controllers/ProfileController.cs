@@ -7,9 +7,12 @@ using MyGame.DAL.Repository;
 using MyGame.Infrastructure.Models;
 using MyGame.UI.Models.Users;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using PagedList;
+using System.Web;
+using System.IO;
+using MyGame.UI.Models;
 
 namespace MyGame.UI.Controllers
 {
@@ -21,14 +24,18 @@ namespace MyGame.UI.Controllers
         private readonly ClassRepository _classRepository;
         private readonly ClassManagerBLL _classManager;
         private readonly UsersManagerBLL _userManager;
-
-        public ProfileController(IUsersRepository usersRepository, ClassRepository classRepository, MyGameEntities context, ClassManagerBLL classManager, UsersManagerBLL userManager)
+        private readonly UserItemManagerBLL _userItemManager;
+        private readonly FileManagerBLL _fileManager;
+       
+        public ProfileController(IUsersRepository usersRepository, ClassRepository classRepository, MyGameEntities context, ClassManagerBLL classManager, UsersManagerBLL userManager, UserItemManagerBLL userItemManager, FileManagerBLL fileManager)
         {
             _userManager = userManager;
             _classManager = classManager;
             _userRepository = usersRepository;
             _classRepository = classRepository;
             _context = context;
+            _userItemManager = userItemManager;
+            _fileManager = fileManager;
         }
 
 
@@ -68,7 +75,8 @@ namespace MyGame.UI.Controllers
 
             var userId = User.Identity.GetUserId();
 
-            Class classEntity = _classRepository.GetById(userViewModel.ClassId);
+            Class classEntity = new Class(); 
+                classEntity= _classRepository.GetById(userViewModel.ClassId);
 
             if (_userRepository.UserNameExists(userViewModel.Name))
             {
@@ -76,10 +84,19 @@ namespace MyGame.UI.Controllers
                 return View(userViewModel);
             }
 
+            
+
             var usersModel = ConvertToBLL(userViewModel);
             User user = UsersMapper.ConvertToEntity(usersModel);
 
+            if (classEntity==null)
+            {
+                ModelState.AddModelError("classEntity.ID","Please choose a class.");
+                return View(userViewModel);
+            }
+
             user.ASP_ID = userId;
+            
             user.Level = 1;
             user.Name = usersModel.Name;
             user.Class_ID = classEntity.ID;
@@ -107,9 +124,13 @@ namespace MyGame.UI.Controllers
 
             Class classEntity = _classRepository.GetById(userViewModel.ClassId);
             ClassModel classModel = ClassMapper.ConvertToModel(classEntity);
-            ClassViewModel classViewModel = ConvertToViewModel(classModel);
+            Models.Users.ClassViewModel classViewModel = ConvertToViewModel(classModel);
             userViewModel.ClassId = classViewModel.ID;
             userViewModel.ClassName = classViewModel.Name;
+
+            List<FileModel> modelList = _fileManager.GetAllFiles();
+            userViewModel.FileList = ConvertToViewModel(modelList);
+
 
             return View(userViewModel);
 
@@ -128,21 +149,53 @@ namespace MyGame.UI.Controllers
             {
                 return RedirectToAction("PlayerView", "Profile");
             }
-            
+
+
+            // Read the source file into a byte array.
             byte[] uploadedFile = new byte[userViewModel.UploadedImage.InputStream.Length];
+
+            var filename = DateTime.Now.ToLongDateString();
+            var path = Server.MapPath($"~/Uploads/");
+            userViewModel.UploadedImage.SaveAs(path + filename + ".jpg");
+
+            //reads a sequence of bytes from the current stream and advances the position within the stream by the number of bytes read.
             userViewModel.UploadedImage.InputStream.Read(uploadedFile, 0, uploadedFile.Length);
+            // Copy the byte array into a string.
             userViewModel.Image = Convert.ToBase64String(uploadedFile);
 
-             UsersModel userModel = ConvertToBLL(userViewModel);
-             User user = UsersMapper.ConvertToEntity(userModel);
 
            
-
-
+             UsersModel userModel = ConvertToBLL(userViewModel);
+             User user = UsersMapper.ConvertToEntity(userModel);
+             
+           
             _userRepository.UpdateUserPicture(user);
             _context.SaveChanges();
 
+            user = _userRepository.GetById(userViewModel.AspId);
+            userModel = UsersMapper.ConvertToModel(user);
+            userViewModel = ConvertToViewModel(userModel);
+            userViewModel.ClassName = user.Class.Name;
             return View(userViewModel);
+        }
+
+        [HttpGet]
+        public ActionResult UploadFile()
+        {
+            FileDetailsModel viewModel = new FileDetailsModel();
+            return PartialView("_UploadedFile", viewModel);
+        }
+
+        [HttpPost]
+        public ActionResult UploadFile(FileDetailsModel viewModel)
+        {
+            var path = Server.MapPath($"~/Uploads/");
+            viewModel.FileName = viewModel.UploadedFile.FileName;
+            viewModel.UploadedFile.SaveAs(path + viewModel.FileName + ".pdf");
+            FileModel model = new FileModel();
+            model.Name = viewModel.FileName;
+            _fileManager.AddFile(model);
+            return RedirectToAction("PlayerView");
         }
         /// <summary>
         ///  This is the first function that executes after login.
@@ -164,7 +217,14 @@ namespace MyGame.UI.Controllers
             }
         }
 
-
+        public ActionResult ShowItems(int page=1)
+        {
+            string aspUserId = User.Identity.GetUserId();
+            List<UserItemModel> modelList = _userItemManager.GetItems(aspUserId);
+            List<UserItemViewModel> viewModelList = GetUserItemViewModelList(modelList);
+            return PartialView("_UserItems", viewModelList.ToPagedList(page, 1));
+            
+        }
 
         private static List<SelectListItem> ConvertToSelectList(List<ClassModel> classModelList)
         {
@@ -172,6 +232,13 @@ namespace MyGame.UI.Controllers
             classModelSelectList.Insert(0, new SelectListItem { Value = 0.ToString(), Text = "Select class" });
             classModelList.ForEach(s => classModelSelectList.Add(new SelectListItem { Text = s.Name, Value = s.ID.ToString() }));
             return classModelSelectList;
+        }
+
+        private static List<FileDetailsModel> ConvertToViewModel(List<FileModel> modelList)
+        {
+            List<FileDetailsModel> viewModelList = new List<FileDetailsModel>();
+            modelList.ForEach(s => viewModelList.Add(new FileDetailsModel { FileName = s.Name }));
+            return viewModelList;
         }
 
         private static UsersModel ConvertToBLL(UserViewModel userViewModel)
@@ -207,9 +274,9 @@ namespace MyGame.UI.Controllers
             return userViewModel;
         }
 
-        private static ClassViewModel ConvertToViewModel(ClassModel classModel)
+        private static Models.Users.ClassViewModel ConvertToViewModel(ClassModel classModel)
         {
-            ClassViewModel classViewModel = new ClassViewModel();
+            Models.Users.ClassViewModel classViewModel = new Models.Users.ClassViewModel();
             classViewModel.ID= classModel.ID ;
             classViewModel.Name= classModel.Name ;
             classViewModel.Base_Attack= classModel.Base_Attack ;
@@ -217,6 +284,13 @@ namespace MyGame.UI.Controllers
             classViewModel.Base_HP = classModel.Base_HP;
             return classViewModel;
 
+        }
+
+        private static List<UserItemViewModel> GetUserItemViewModelList(List<UserItemModel> modelList)
+        {
+            List<UserItemViewModel> viewModelList = new List<UserItemViewModel>();
+            modelList.ForEach(s => viewModelList.Add(new UserItemViewModel { ItemName = s.Name, ItemAttack = s.Attack, ItemArmor = s.Defense, ItemHp = s.HpRegen }));
+            return viewModelList;
         }
     }
 }

@@ -12,12 +12,16 @@ namespace MyGame.DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class sysdiagram
+    public partial class UserItem
     {
-        public string name { get; set; }
-        public int principal_id { get; set; }
-        public int diagram_id { get; set; }
-        public Nullable<int> version { get; set; }
-        public byte[] definition { get; set; }
+        public string UserId { get; set; }
+        public string Name { get; set; }
+        public Nullable<int> UserArmor { get; set; }
+        public Nullable<int> UserAttack { get; set; }
+        public Nullable<int> UserHP { get; set; }
+        public Nullable<int> ItemAttack { get; set; }
+        public Nullable<int> ItemDefense { get; set; }
+        public Nullable<int> HPregeneration { get; set; }
+        public string ItemName { get; set; }
     }
 }

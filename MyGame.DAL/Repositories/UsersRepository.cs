@@ -40,11 +40,13 @@ namespace MyGame.DAL.Repository
         
         public int Insert(User entity)
         {
+           
             _context.Users.Add(entity);
             _context.Entry(entity).State = System.Data.Entity.EntityState.Added;
             _context.SaveChanges();
             return entity.ID;
         }
+
 
         public void Update(User entity)
         {
@@ -86,6 +88,7 @@ namespace MyGame.DAL.Repository
                 _context.SaveChanges();
             }
         }
+
         public User GetById(string id)
         {
             return _context.Users.Where(u => u.ASP_ID == id).Include(x => x.AspNetUser).FirstOrDefault();
@@ -107,6 +110,7 @@ namespace MyGame.DAL.Repository
         {
            
            UserCoord coords = _context.UserCoords.FirstOrDefault(u => u.UserId == userId);
+            
             if(coords==null)
             {
                 coords = new UserCoord(); 

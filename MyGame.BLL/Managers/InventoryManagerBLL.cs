@@ -31,6 +31,13 @@ namespace MyGame.BLL.Managers
             var inventoryModel =InventoryMapper.ConvertToModel(modelEntity);
             return inventoryModel;
         }
+
+        public void AddItemModel(int itemId, int userId)
+        {
+            var newItem = new Inventory { ID_Item = itemId, ID_User = userId };
+            _inventoryRepository.AddItem(newItem);
+
+        }
         #endregion public methods
 
       

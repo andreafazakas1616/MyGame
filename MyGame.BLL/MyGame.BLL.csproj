@@ -43,6 +43,8 @@
   <ItemGroup>
     <Compile Include="Managers\AspNetUserManagerBLL.cs" />
     <Compile Include="Managers\FightManagerBLL.cs" />
+    <Compile Include="Managers\FileManagerBLL.cs" />
+    <Compile Include="Managers\UserItemManagerBLL.cs" />
     <Compile Include="Mappers\AspNetUserMapper.cs" />
     <Compile Include="Managers\ClassManagerBLL.cs" />
     <Compile Include="Managers\EnemyManagerBLL.cs" />
@@ -51,8 +53,10 @@
     <Compile Include="Managers\UsersManagerBLL.cs" />
     <Compile Include="Mappers\ClassMapper.cs" />
     <Compile Include="Mappers\EnemyMapper.cs" />
+    <Compile Include="Mappers\FileMapper.cs" />
     <Compile Include="Mappers\InventoryMapper.cs" />
     <Compile Include="Mappers\ItemsMapper.cs" />
+    <Compile Include="Mappers\UserItemMapper.cs" />
     <Compile Include="Mappers\UsersMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

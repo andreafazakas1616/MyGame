@@ -96,6 +96,13 @@
           <Property Name="CoordX" Type="int" />
           <Property Name="CoordY" Type="int" />
         </EntityType>
+        <EntityType Name="Files">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FileName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="Inventory">
           <Key>
             <PropertyRef Name="ID" />
@@ -113,16 +120,6 @@
           <Property Name="Attack" Type="int" />
           <Property Name="Defense" Type="int" />
           <Property Name="HPregeneration" Type="int" />
-        </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="principal_id" Type="int" Nullable="false" />
-          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="version" Type="int" />
-          <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="UserCoords">
           <Key>
@@ -148,6 +145,22 @@
           <Property Name="Armor" Type="int" />
           <Property Name="Attack" Type="int" />
           <Property Name="HP" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Items.dbo.UserItems' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="UserItems">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="UserArmor" Type="int" />
+          <Property Name="UserAttack" Type="int" />
+          <Property Name="UserHP" Type="int" />
+          <Property Name="ItemAttack" Type="int" />
+          <Property Name="ItemDefense" Type="int" />
+          <Property Name="HPregeneration" Type="int" />
+          <Property Name="ItemName" Type="nvarchar" MaxLength="20" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
@@ -287,11 +300,24 @@
           <EntitySet Name="Class" EntityType="Self.Class" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Enemies" EntityType="Self.Enemies" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EnemyCoords" EntityType="Self.EnemyCoords" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Files" EntityType="Self.Files" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Inventory" EntityType="Self.Inventory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Items" EntityType="Self.Items" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserCoords" EntityType="Self.UserCoords" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserItems" EntityType="Self.UserItems" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [UserItems].[UserId] AS [UserId], 
+    [UserItems].[Name] AS [Name], 
+    [UserItems].[UserArmor] AS [UserArmor], 
+    [UserItems].[UserAttack] AS [UserAttack], 
+    [UserItems].[UserHP] AS [UserHP], 
+    [UserItems].[ItemAttack] AS [ItemAttack], 
+    [UserItems].[ItemDefense] AS [ItemDefense], 
+    [UserItems].[HPregeneration] AS [HPregeneration], 
+    [UserItems].[ItemName] AS [ItemName]
+    FROM [dbo].[UserItems] AS [UserItems]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
@@ -346,11 +372,12 @@
           <EntitySet Name="Classes" EntityType="ItemsModel.Class" />
           <EntitySet Name="Enemies" EntityType="ItemsModel.Enemy" />
           <EntitySet Name="EnemyCoords" EntityType="ItemsModel.EnemyCoord" />
+          <EntitySet Name="Files" EntityType="ItemsModel.File" />
           <EntitySet Name="Inventories" EntityType="ItemsModel.Inventory" />
           <EntitySet Name="Items" EntityType="ItemsModel.Item" />
-          <EntitySet Name="sysdiagrams" EntityType="ItemsModel.sysdiagram" />
           <EntitySet Name="UserCoords" EntityType="ItemsModel.UserCoord" />
           <EntitySet Name="Users" EntityType="ItemsModel.User" />
+          <EntitySet Name="UserItems" EntityType="ItemsModel.UserItem" />
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="ItemsModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
             <End Role="AspNetUserClaim" EntitySet="AspNetUserClaims" />
@@ -482,6 +509,13 @@
           <Property Name="CoordY" Type="Int32" />
           <NavigationProperty Name="Enemy" Relationship="ItemsModel.FK_EnemyCoords_Enemies" FromRole="EnemyCoord" ToRole="Enemy" />
         </EntityType>
+        <EntityType Name="File">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FileName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
         <EntityType Name="Inventory">
           <Key>
             <PropertyRef Name="ID" />
@@ -502,16 +536,6 @@
           <Property Name="Defense" Type="Int32" />
           <Property Name="HPregeneration" Type="Int32" />
           <NavigationProperty Name="Inventories" Relationship="ItemsModel.FK_Inventory_Items" FromRole="Item" ToRole="Inventory" />
-        </EntityType>
-        <EntityType Name="sysdiagram">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <EntityType Name="UserCoord">
           <Key>
@@ -541,6 +565,20 @@
           <NavigationProperty Name="AspNetUser" Relationship="ItemsModel.FK_Users_AspNetUsers" FromRole="User" ToRole="AspNetUser" />
           <NavigationProperty Name="Class" Relationship="ItemsModel.FK_Users_Class" FromRole="User" ToRole="Class" />
           <NavigationProperty Name="Inventories" Relationship="ItemsModel.FK_Inventory_Users" FromRole="User" ToRole="Inventory" />
+        </EntityType>
+        <EntityType Name="UserItem">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UserArmor" Type="Int32" />
+          <Property Name="UserAttack" Type="Int32" />
+          <Property Name="UserHP" Type="Int32" />
+          <Property Name="ItemAttack" Type="Int32" />
+          <Property Name="ItemDefense" Type="Int32" />
+          <Property Name="HPregeneration" Type="Int32" />
+          <Property Name="ItemName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Type="ItemsModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
@@ -740,6 +778,14 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Files">
+            <EntityTypeMapping TypeName="ItemsModel.File">
+              <MappingFragment StoreEntitySet="Files">
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Inventories">
             <EntityTypeMapping TypeName="ItemsModel.Inventory">
               <MappingFragment StoreEntitySet="Inventory">
@@ -757,17 +803,6 @@
                 <ScalarProperty Name="Attack" ColumnName="Attack" />
                 <ScalarProperty Name="Item1" ColumnName="Item" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="ItemsModel.sysdiagram">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="definition" ColumnName="definition" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="name" ColumnName="name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -795,6 +830,21 @@
                 <ScalarProperty Name="Level" ColumnName="Level" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserItems">
+            <EntityTypeMapping TypeName="ItemsModel.UserItem">
+              <MappingFragment StoreEntitySet="UserItems">
+                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+                <ScalarProperty Name="HPregeneration" ColumnName="HPregeneration" />
+                <ScalarProperty Name="ItemDefense" ColumnName="ItemDefense" />
+                <ScalarProperty Name="ItemAttack" ColumnName="ItemAttack" />
+                <ScalarProperty Name="UserHP" ColumnName="UserHP" />
+                <ScalarProperty Name="UserAttack" ColumnName="UserAttack" />
+                <ScalarProperty Name="UserArmor" ColumnName="UserArmor" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

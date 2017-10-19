@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_Layout3.cshtml";
 }
 
-<h2>This is your profile.</h2>
+<h2 style="text-align:center">Your profile.</h2>
 
 <div class="account">
 
@@ -15,8 +15,8 @@
             <div id="img" class="">
                 @if (!string.IsNullOrEmpty(Model.Image))
                 {
-                    //this line shows a base64 string as an images
-                    <img src="data:image;base64,@Model.Image" width="80" height="80"  />
+                    //this line shows a base64 string as an image
+                    <img src="data:image;base64,@Model.Image" width="80" height="80" />
                 }
 
                 @*@Html.LabelFor(model => model.UploadedImage, htmlAttributes: new { @class = "control-label col-md-2" })*@
@@ -36,32 +36,53 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-6 border3px">
-                <div>
-                    Class:
-                    <b>@Html.DisplayFor(model => model.ClassName)</b>
-                </div>
-                <div>
-                    Level:
-                    <b>@Html.DisplayFor(model => model.Level)</b>
-                </div>
-                <div>
-                    Attack:
-                    <b>@Html.DisplayFor(model => model.Attack)</b>
-                </div>
-                <div>
-                    Armor:
-                    <b>@Html.DisplayFor(model => model.Armor)</b>
+            <div class="col-md-6 border3px ">
+                <div class="seestats">
+                    <div>
+                        Class:
+                        <b>@Html.DisplayFor(model => model.ClassName)</b>
+                    </div>
+                    <div>
+                        Level:
+                        <b>@Html.DisplayFor(model => model.Level)</b>
+                    </div>
+                    <div>
+                        Attack:
+                        <b>@Html.DisplayFor(model => model.Attack)</b>
+                    </div>
+                    <div>
+                        Armor:
+                        <b>@Html.DisplayFor(model => model.Armor)</b>
+                    </div>
                 </div>
             </div>
 
             <div class="col-md-6 border3px">
-                <div>
-                    Top jej
+                <div class="seestats">
+                    <div>
+                        <div id="items">
+                        </div>
+                    </div>
                 </div>
             </div>
+
         </div>
 
     }
 
 </div>
+
+<div id="files"></div>
+<div>
+    @foreach (var item in Model.FileList)
+    {
+        <div>@item.FileName</div>
+    }
+</div>
+@Scripts.Render("~/bundles/jquery");
+<script type="text/JavaScript">
+    $(document).ready(function () {
+        $("#items").load("@Url.Action("ShowItems", "Profile")");
+        $("#files").load("@Url.Action("UploadFile", "Profile")");
+    });
+</script>

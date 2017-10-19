@@ -7,17 +7,18 @@
       <Diagram DiagramId="8c79c08b8acd4a95a88e0d8361b35197" Name="Diagram1">
         <EntityTypeShape EntityType="ItemsModel.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="0.75" />
         <EntityTypeShape EntityType="ItemsModel.AspNetRole" Width="1.5" PointX="0.75" PointY="6.5" />
-        <EntityTypeShape EntityType="ItemsModel.AspNetUserClaim" Width="1.5" PointX="5.25" PointY="13.375" />
-        <EntityTypeShape EntityType="ItemsModel.AspNetUserLogin" Width="1.5" PointX="5.25" PointY="10.875" />
+        <EntityTypeShape EntityType="ItemsModel.AspNetUserClaim" Width="1.5" PointX="5.25" PointY="10.875" />
+        <EntityTypeShape EntityType="ItemsModel.AspNetUserLogin" Width="1.5" PointX="5.25" PointY="13.625" />
         <EntityTypeShape EntityType="ItemsModel.AspNetUser" Width="1.5" PointX="3" PointY="5.125" />
         <EntityTypeShape EntityType="ItemsModel.Class" Width="1.5" PointX="6" PointY="7.125" />
         <EntityTypeShape EntityType="ItemsModel.Enemy" Width="1.5" PointX="10.75" PointY="1" />
         <EntityTypeShape EntityType="ItemsModel.EnemyCoord" Width="1.5" PointX="13" PointY="1.125" />
+        <EntityTypeShape EntityType="ItemsModel.File" Width="1.5" PointX="2.75" PointY="0.75" />
         <EntityTypeShape EntityType="ItemsModel.Inventory" Width="1.5" PointX="10.5" PointY="6.25" />
         <EntityTypeShape EntityType="ItemsModel.Item" Width="1.5" PointX="8.25" PointY="2.125" />
-        <EntityTypeShape EntityType="ItemsModel.sysdiagram" Width="1.5" PointX="2.75" PointY="0.75" />
         <EntityTypeShape EntityType="ItemsModel.UserCoord" Width="1.5" PointX="5.25" PointY="3.625" />
         <EntityTypeShape EntityType="ItemsModel.User" Width="1.5" PointX="8.25" PointY="5.375" />
+        <EntityTypeShape EntityType="ItemsModel.UserItem" Width="1.5" PointX="0.75" PointY="10.75" />
         <AssociationConnector Association="ItemsModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
         <AssociationConnector Association="ItemsModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
         <AssociationConnector Association="ItemsModel.FK_UserCoords_AspNetUsers" />

@@ -33,6 +33,14 @@ namespace MyGame.BLL.Managers
             return itemsModel;
         }
 
+        public List<ItemsModel> GetModelList()
+        {
+            List<Item> entityList = _itemsRepository.GetAll();
+            List<ItemsModel> modelList = ItemsMapper.ConvertToModelList(entityList);
+            return modelList;
+
+        }
+
         #endregion public methods
 
      

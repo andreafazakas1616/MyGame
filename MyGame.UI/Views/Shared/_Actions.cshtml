@@ -9,7 +9,14 @@
                 @action.Name
             </div>
             <div class="col-xs-3">
-                <a href="@action.Link">Attack</a>
+                @if (action.Name == "Shop")
+                {
+                   <a href="@action.Link">Go to shop</a>
+                }
+                else
+                {
+                    <a href="@action.Link">Attack</a>
+                }
             </div>
         </div>
     }

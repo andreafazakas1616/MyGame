@@ -13,5 +13,6 @@ namespace MyGame.DAL.Interfaces
         bool CheckIfUserExists(string email);
         bool UserNameExists(string userName);
         void UpdateUserPicture(User user);
+       
     }
 }

@@ -56,6 +56,7 @@ namespace MyGame.UI.App_Start
             
 
 
+
             container.RegisterType<ClassManagerBLL>("ClassManager");
             container.RegisterType<AspNetUserManagerBLL>("AspNetUserManager");
             container.RegisterType<UsersManagerBLL>("UserManager");
