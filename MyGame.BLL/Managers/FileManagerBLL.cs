@@ -28,6 +28,7 @@ namespace MyGame.BLL.Managers
             File entity = Mappers.FileMapper.GetEntity(model);
             _fileRepository.Add(entity.FileName);
             //hi
+            //bye
         }
 
         
