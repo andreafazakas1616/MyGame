@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using MyGame.DAL;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web;
 using System.Web.Mvc;
@@ -42,6 +43,7 @@ namespace MyGame.UI.Models.Users
         public int CoordX { get; set; }
         public int CoordY { get; set; }
         public List<FileDetailsModel> FileList { get; set; }
+        public List<UserItemViewModel> Inventory { get; set; }
 
     }
 }

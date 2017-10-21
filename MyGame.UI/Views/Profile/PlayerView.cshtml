@@ -18,12 +18,9 @@
                     //this line shows a base64 string as an image
                     <img src="data:image;base64,@Model.Image" width="80" height="80" />
                 }
-
-                @*@Html.LabelFor(model => model.UploadedImage, htmlAttributes: new { @class = "control-label col-md-2" })*@
-
-
                 @Html.TextBoxFor(model => model.UploadedImage, new { type = "file" })
                 @Html.ValidationMessageFor(model => model.UploadedImage, "", new { @class = "text-danger" })
+
 
 
                 <div class="form-group" style="">
@@ -60,8 +57,23 @@
             <div class="col-md-6 border3px">
                 <div class="seestats">
                     <div>
+                        
                         <div id="items">
+                         
+                           
                         </div>
+                        <div>
+                            @using (Ajax.BeginForm(new AjaxOptions {Url="/Profile/ShowItems", HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "items" }))
+                            {
+                                <input type="hidden" id="CurrentPage" name="CurrentPage" value=@ViewBag.CurrentPage>
+                                <input type="hidden" id="LastPage" name="LastPage" value="@ViewBag.LastPage">
+                            }
+
+                            <input type="button" id="Previous" value="Previous" />
+                            <input type="button" id="Next" value="Next" />
+                        </div>
+
+
                     </div>
                 </div>
             </div>
@@ -72,7 +84,7 @@
 
 </div>
 
-<div id="files"></div>
+
 <div>
     @foreach (var item in Model.FileList)
     {
@@ -80,9 +92,58 @@
     }
 </div>
 @Scripts.Render("~/bundles/jquery");
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
 <script type="text/JavaScript">
     $(document).ready(function () {
+
         $("#items").load("@Url.Action("ShowItems", "Profile")");
-        $("#files").load("@Url.Action("UploadFile", "Profile")");
-    });
+         });
+
+        $("#Previous").click(function () {
+            if (CalculateAndSetPage("Previous")) {
+                $("form").submit();
+            }
+        });
+
+
+        $("#Next").click(function () {
+            if (CalculateAndSetPage("Next")) {
+                $("form").submit();
+            }
+        });
+   
+    function CalculateAndSetPage(movingType) {
+        //debugger;
+        var currentPage = parseInt($("#CurrentPage").val());
+        var lastPage = parseInt($("#LastPage").val());
+
+        if (currentPage == 1 && movingType == "Previous") {
+            return false;
+        }
+
+        if (currentPage == lastPage && movingType == "Next") {
+            return false;
+        }
+
+        if (movingType == "Previous") {
+            currentPage--;
+        }
+
+        else if (movingType == "Next") {
+            currentPage++;
+        }
+
+        else {
+            alert("Something went wrong");
+        }
+
+        $("#CurrentPage").val(currentPage);
+
+        return true;
+        }
+
 </script>
+
+
+
+
