@@ -16,7 +16,13 @@ namespace MyGame.DAL.Repositories
 
         public List<UserItem> GetAllItems(string userAspId)
         {
-            return _context.UserItems.Where(u => u.UserId == userAspId).ToList();
+            var query = from c in _context.UserItems
+                        where c.UserId==userAspId
+                        select c;
+
+             List<UserItem> list_item = query.ToList<UserItem>();
+
+            return list_item;
         }
     }
 }

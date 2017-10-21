@@ -56,25 +56,9 @@
 
             <div class="col-md-6 border3px">
                 <div class="seestats">
-                    <div>
-                        
-                        <div id="items">
-                         
-                           
-                        </div>
-                        <div>
-                            @using (Ajax.BeginForm(new AjaxOptions {Url="/Profile/ShowItems", HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "items" }))
-                            {
-                                <input type="hidden" id="CurrentPage" name="CurrentPage" value=@ViewBag.CurrentPage>
-                                <input type="hidden" id="LastPage" name="LastPage" value="@ViewBag.LastPage">
-                            }
-
-                            <input type="button" id="Previous" value="Previous" />
-                            <input type="button" id="Next" value="Next" />
-                        </div>
-
-
-                    </div>
+                    <div id="hi">
+                        <form method="get" action="@Url.Action("ShowItems")" data-otf-ajax="true" data-otf-target="hi"></form>
+</div>
                 </div>
             </div>
 
@@ -99,48 +83,7 @@
         $("#items").load("@Url.Action("ShowItems", "Profile")");
          });
 
-        $("#Previous").click(function () {
-            if (CalculateAndSetPage("Previous")) {
-                $("form").submit();
-            }
-        });
 
-
-        $("#Next").click(function () {
-            if (CalculateAndSetPage("Next")) {
-                $("form").submit();
-            }
-        });
-   
-    function CalculateAndSetPage(movingType) {
-        //debugger;
-        var currentPage = parseInt($("#CurrentPage").val());
-        var lastPage = parseInt($("#LastPage").val());
-
-        if (currentPage == 1 && movingType == "Previous") {
-            return false;
-        }
-
-        if (currentPage == lastPage && movingType == "Next") {
-            return false;
-        }
-
-        if (movingType == "Previous") {
-            currentPage--;
-        }
-
-        else if (movingType == "Next") {
-            currentPage++;
-        }
-
-        else {
-            alert("Something went wrong");
-        }
-
-        $("#CurrentPage").val(currentPage);
-
-        return true;
-        }
 
 </script>
 
