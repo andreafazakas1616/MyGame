@@ -290,6 +290,9 @@ warning 6002: The table/view 'Items.dbo.UserItems' does not have a primary key d
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="GetSth" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserId" Type="int" Mode="In" />
+        </Function>
         <EntityContainer Name="ItemsModelStoreContainer">
           <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
@@ -414,7 +417,67 @@ warning 6002: The table/view 'Items.dbo.UserItems' does not have a primary key d
             <End Role="AspNetRole" EntitySet="AspNetRoles" />
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
           </AssociationSet>
+          <FunctionImport Name="GetSth" ReturnType="Collection(ItemsModel.GetSth_Result2)">
+            <Parameter Name="UserId" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
+        <ComplexType Name="GetUserItems_Result">
+          <Property Type="String" Name="UserId" Nullable="false" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="UserArmor" Nullable="true" />
+          <Property Type="Int32" Name="UserAttack" Nullable="true" />
+          <Property Type="Int32" Name="UserHP" Nullable="true" />
+          <Property Type="Int32" Name="ItemAttack" Nullable="true" />
+          <Property Type="Int32" Name="ItemDefense" Nullable="true" />
+          <Property Type="Int32" Name="HPregeneration" Nullable="true" />
+          <Property Type="String" Name="ItemName" Nullable="true" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="UserItems">
+          <Property Type="String" Name="UserId" Nullable="false" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="UserArmor" Nullable="true" />
+          <Property Type="Int32" Name="UserAttack" Nullable="true" />
+          <Property Type="Int32" Name="UserHP" Nullable="true" />
+          <Property Type="Int32" Name="ItemAttack" Nullable="true" />
+          <Property Type="Int32" Name="ItemDefense" Nullable="true" />
+          <Property Type="Int32" Name="HPregeneration" Nullable="true" />
+          <Property Type="String" Name="ItemName" Nullable="true" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="GetUserItems1_Result">
+          <Property Type="String" Name="UserId" Nullable="false" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="UserArmor" Nullable="true" />
+          <Property Type="Int32" Name="UserAttack" Nullable="true" />
+          <Property Type="Int32" Name="UserHP" Nullable="true" />
+          <Property Type="Int32" Name="ItemAttack" Nullable="true" />
+          <Property Type="Int32" Name="ItemDefense" Nullable="true" />
+          <Property Type="Int32" Name="HPregeneration" Nullable="true" />
+          <Property Type="String" Name="ItemName" Nullable="true" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="GetSth_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="Int32" Name="ID_User" Nullable="true" />
+          <Property Type="Int32" Name="ID_Item" Nullable="true" />
+          <Property Type="Int32" Name="ID1" Nullable="false" />
+          <Property Type="String" Name="Item" Nullable="true" MaxLength="20" />
+          <Property Type="Int32" Name="Attack" Nullable="true" />
+          <Property Type="Int32" Name="Defense" Nullable="true" />
+          <Property Type="Int32" Name="HPregeneration" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetSth1_Result">
+          <Property Type="Int32" Name="ID_User" Nullable="true" />
+          <Property Type="String" Name="Item" Nullable="true" MaxLength="20" />
+          <Property Type="Int32" Name="Attack" Nullable="true" />
+          <Property Type="Int32" Name="Defense" Nullable="true" />
+          <Property Type="Int32" Name="HPregeneration" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetSth_Result1">
+          <Property Type="Int32" Name="ID_User" Nullable="true" />
+          <Property Type="String" Name="Item" Nullable="true" MaxLength="20" />
+          <Property Type="Int32" Name="Attack" Nullable="true" />
+          <Property Type="Int32" Name="Defense" Nullable="true" />
+          <Property Type="Int32" Name="HPregeneration" Nullable="true" />
+        </ComplexType>
         <EntityType Name="C__MigrationHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
@@ -684,6 +747,12 @@ warning 6002: The table/view 'Items.dbo.UserItems' does not have a primary key d
           <End Type="ItemsModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
           <End Type="ItemsModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
         </Association>
+        <ComplexType Name="GetSth_Result2">
+          <Property Type="String" Name="Item" Nullable="true" MaxLength="20" />
+          <Property Type="Int32" Name="Attack" Nullable="true" />
+          <Property Type="Int32" Name="Defense" Nullable="true" />
+          <Property Type="Int32" Name="HPregeneration" Nullable="true" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -856,6 +925,16 @@ warning 6002: The table/view 'Items.dbo.UserItems' does not have a primary key d
               <ScalarProperty Name="Id" ColumnName="RoleId" />
             </EndProperty>
           </AssociationSetMapping>
+          <FunctionImportMapping FunctionImportName="GetSth" FunctionName="ItemsModel.Store.GetSth">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ItemsModel.GetSth_Result2">
+                <ScalarProperty Name="Item" ColumnName="Item" />
+                <ScalarProperty Name="Attack" ColumnName="Attack" />
+                <ScalarProperty Name="Defense" ColumnName="Defense" />
+                <ScalarProperty Name="HPregeneration" ColumnName="HPregeneration" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

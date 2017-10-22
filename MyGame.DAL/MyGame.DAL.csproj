@@ -76,6 +76,24 @@
     <Compile Include="File.cs">
       <DependentUpon>MyGameModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="GetSth1_Result.cs">
+      <DependentUpon>MyGameModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetSth_Result.cs">
+      <DependentUpon>MyGameModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetSth_Result1.cs">
+      <DependentUpon>MyGameModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetSth_Result2.cs">
+      <DependentUpon>MyGameModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetUserItems1_Result.cs">
+      <DependentUpon>MyGameModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetUserItems_Result.cs">
+      <DependentUpon>MyGameModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Interfaces\IUserCoords.cs" />
     <Compile Include="Interfaces\IUserItemsRepository.cs" />
     <Compile Include="Interfaces\IUsersRepository.cs" />
@@ -117,6 +135,9 @@
       <DependentUpon>MyGameModel.tt</DependentUpon>
     </Compile>
     <Compile Include="UserItem.cs">
+      <DependentUpon>MyGameModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserItems.cs">
       <DependentUpon>MyGameModel.tt</DependentUpon>
     </Compile>
   </ItemGroup>

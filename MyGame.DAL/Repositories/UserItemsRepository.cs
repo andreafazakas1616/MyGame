@@ -16,13 +16,17 @@ namespace MyGame.DAL.Repositories
 
         public List<UserItem> GetAllItems(string userAspId)
         {
-            var query = from c in _context.UserItems
-                        where c.UserId==userAspId
-                        select c;
-
-             List<UserItem> list_item = query.ToList<UserItem>();
-
-            return list_item;
+            throw new NotImplementedException();
         }
+
+        //public List<UserItem> GetAllItems(string userAspId)
+        //{
+        //    List<UserItem> list = _context.GetUserItems(userAspId).ToList();
+        //    return list;
+
+
+        //}
+
+
     }
 }

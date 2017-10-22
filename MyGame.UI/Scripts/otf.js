@@ -1,6 +1,6 @@
 ﻿$(document).ready(function () {
     
-    $("#hi").load("/Profile/ShowItems");
+    $("#items").load("/Profile/ShowItems");
 
     var ajaxFormSubmit = function () {
         
@@ -22,7 +22,7 @@
 
 
     var getPage = function () {
-        
+       
         var $a = $(this);
         
         var options = {
@@ -35,7 +35,7 @@
             
             var target = $a.parents("div.pagedList").attr("data-otf-target");
             $(target).replaceWith(data);
-            $("[data-otf-target]").value();
+           
         });
         return false;
 

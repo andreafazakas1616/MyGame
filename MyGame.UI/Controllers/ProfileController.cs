@@ -10,9 +10,8 @@ using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
 using PagedList;
-using System.Web;
-using System.IO;
 using MyGame.UI.Models;
+
 
 namespace MyGame.UI.Controllers
 {
@@ -26,8 +25,9 @@ namespace MyGame.UI.Controllers
         private readonly UsersManagerBLL _userManager;
         private readonly UserItemManagerBLL _userItemManager;
         private readonly FileManagerBLL _fileManager;
+        private readonly InventoryRepository _inventoryRepository;
        
-        public ProfileController(IUsersRepository usersRepository, ClassRepository classRepository, MyGameEntities context, ClassManagerBLL classManager, UsersManagerBLL userManager, UserItemManagerBLL userItemManager, FileManagerBLL fileManager)
+        public ProfileController(IUsersRepository usersRepository, ClassRepository classRepository, MyGameEntities context, ClassManagerBLL classManager, UsersManagerBLL userManager, UserItemManagerBLL userItemManager, FileManagerBLL fileManager, InventoryRepository inventoryRepository)
         {
             _userManager = userManager;
             _classManager = classManager;
@@ -36,6 +36,7 @@ namespace MyGame.UI.Controllers
             _context = context;
             _userItemManager = userItemManager;
             _fileManager = fileManager;
+            _inventoryRepository = inventoryRepository;
         }
 
 
@@ -179,24 +180,24 @@ namespace MyGame.UI.Controllers
             return View(userViewModel);
         }
 
-        [HttpGet]
-        public ActionResult UploadFile()
-        {
-            FileDetailsModel viewModel = new FileDetailsModel();
-            return PartialView("_UploadedFile", viewModel);
-        }
+        //[HttpGet]
+        //public ActionResult UploadFile()
+        //{
+        //    FileDetailsModel viewModel = new FileDetailsModel();
+        //    return PartialView("_UploadedFile", viewModel);
+        //}
 
-        [HttpPost]
-        public ActionResult UploadFile(FileDetailsModel viewModel)
-        {
-            var path = Server.MapPath($"~/Uploads/");
-            viewModel.FileName = viewModel.UploadedFile.FileName;
-            viewModel.UploadedFile.SaveAs(path + viewModel.FileName + ".pdf");
-            FileModel model = new FileModel();
-            model.Name = viewModel.FileName;
-            _fileManager.AddFile(model);
-            return RedirectToAction("PlayerView");
-        }
+        //[HttpPost]
+        //public ActionResult UploadFile(FileDetailsModel viewModel)
+        //{
+        //    var path = Server.MapPath($"~/Uploads/");
+        //    viewModel.FileName = viewModel.UploadedFile.FileName;
+        //    viewModel.UploadedFile.SaveAs(path + viewModel.FileName + ".pdf");
+        //    FileModel model = new FileModel();
+        //    model.Name = viewModel.FileName;
+        //    _fileManager.AddFile(model);
+        //    return RedirectToAction("PlayerView");
+        //}
         /// <summary>
         ///  This is the first function that executes after login.
         ///  It checks to see if there is an entry in the User table with the email used for the login
@@ -220,11 +221,24 @@ namespace MyGame.UI.Controllers
         public ActionResult ShowItems(int page=1)
         {
             string aspUserId = User.Identity.GetUserId();
-            List<UserItemModel> modelList = _userItemManager.GetItems(aspUserId);
-            List<UserItemViewModel> viewModelList = GetUserItemViewModelList(modelList);
-            return PartialView("_UserItems", viewModelList.ToPagedList(page, 1));
-            
+            User user=_userRepository.GetById(aspUserId);
+            //List<UserItemModel> modelList = _userItemManager.GetItems(aspUserId);
+            //List<UserItemViewModel> viewModelList = GetUserItemViewModelList(modelList);
+
+            //if (Request.IsAjaxRequest())
+            //{
+            //    return PartialView("_UserItems", viewModelList.ToPagedList(page, 1));
+            //}
+            //return RedirectToAction("PlayerView");
+            var inventoryList=_inventoryRepository.GetAllById(user.ID);
+            if (Request.IsAjaxRequest())
+            {
+                return PartialView("_UserItems", inventoryList.ToPagedList(page, 1));
+            }
+            return RedirectToAction("PlayerView");
+
         }
+
 
         private static List<SelectListItem> ConvertToSelectList(List<ClassModel> classModelList)
         {

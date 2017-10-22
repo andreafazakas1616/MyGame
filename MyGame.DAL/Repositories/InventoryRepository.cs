@@ -35,6 +35,11 @@ namespace MyGame.DAL.Repository
             return _context.Inventories.ToList();
         }
 
+        public List<GetSth_Result2> GetAllById(int userId)
+        {
+            return _context.GetSth(userId).ToList();
+        }
+
         public Inventory GetById(int id)
         {
             return _context.Inventories.Where(i => i.ID == id).FirstOrDefault();

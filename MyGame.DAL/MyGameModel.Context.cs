@@ -12,6 +12,8 @@ namespace MyGame.DAL
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class MyGameEntities : DbContext
     {
@@ -39,5 +41,14 @@ namespace MyGame.DAL
         public virtual DbSet<UserCoord> UserCoords { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserItem> UserItems { get; set; }
+    
+        public virtual ObjectResult<GetSth_Result2> GetSth(Nullable<int> userId)
+        {
+            var userIdParameter = userId.HasValue ?
+                new ObjectParameter("UserId", userId) :
+                new ObjectParameter("UserId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetSth_Result2>("GetSth", userIdParameter);
+        }
     }
 }
